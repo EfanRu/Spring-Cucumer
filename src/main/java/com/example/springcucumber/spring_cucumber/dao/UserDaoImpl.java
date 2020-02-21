@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.List;
 
 @Repository
@@ -108,6 +105,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByLogin(String login) {
+        User user = new User();
+        user.setLogin("");
         try {
             Query query = entityManager.createQuery("FROM User u WHERE login = :login");
             query.setParameter("login", login);
@@ -115,7 +114,7 @@ public class UserDaoImpl implements UserDao {
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
-        return null;
+        return user;
     }
 
     @Override

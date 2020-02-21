@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean addUser(User user) {
         User userFromDB = userDao.getUserByLogin(user.getLogin());
-        if (userFromDB == null) {
+        if (userFromDB.getLogin().equals("")) {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             userDao.addUser(user);
             return true;
